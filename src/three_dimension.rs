@@ -1,4 +1,5 @@
 use crate::two_dimension::*;
+use std::ops;
 
 #[derive(Debug)]
 pub struct ThreeDimension {
@@ -47,3 +48,53 @@ impl Vector for Vec3D {
         }
     }
 }
+
+
+impl ops::Add<Vec3D> for Vec3D {
+    type Output = Vec3D;
+    fn add(self, rhs: Vec3D) -> Self::Output {
+        Vec3D {
+            i: self.i + rhs.i,
+            j: self.j + rhs.j,
+            k: self.k + rhs.k,
+        }
+    }
+}
+
+
+impl ops::Sub<Vec3D> for Vec3D {
+    type Output = Vec3D;
+    fn sub(self, rhs: Vec3D) -> Self::Output {
+        Vec3D {
+            i: self.i - rhs.i,
+            j: self.j - rhs.j,
+            k: self.k - rhs.k,
+        }
+    }
+}
+
+impl ops::Mul<f64> for Vec3D {
+    type Output = Vec2D;
+
+    fn mul(self, scalar: f64) -> Self::Output {
+        Vec2D {
+            i: self.i * scalar,
+            j: self.j * scalar,
+        }
+    }
+}
+
+impl ops::Div<f64> for Vec3D {
+    type Output = Vec3D;
+
+    fn div(self, scalar: f64) -> Self::Output {
+        Vec3D {
+            i: self.i / scalar,
+            j: self.j / scalar,
+            k: self.k / scalar,
+        }
+    }
+}
+
+
+

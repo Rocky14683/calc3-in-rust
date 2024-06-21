@@ -1,3 +1,5 @@
+use std::ops;
+
 pub trait Dimension {
     fn distance(&self, other: &Self) -> f64;
 
@@ -36,6 +38,49 @@ impl Vector for Vec2D {
         Vec2D {
             i: self.j * other.i - self.i * other.j,
             j: self.i * other.j - self.j * other.i,
+        }
+    }
+}
+
+impl ops::Add<Vec2D> for Vec2D {
+    type Output = Vec2D;
+    fn add(self, rhs: Vec2D) -> Self::Output {
+        Vec2D {
+            i: self.i + rhs.i,
+            j: self.j + rhs.j,
+        }
+    }
+}
+
+
+impl ops::Sub<Vec2D> for Vec2D {
+    type Output = Vec2D;
+    fn sub(self, rhs: Vec2D) -> Self::Output {
+        Vec2D {
+            i: self.i - rhs.i,
+            j: self.j - rhs.j,
+        }
+    }
+}
+
+impl ops::Mul<f64> for Vec2D {
+    type Output = Vec2D;
+
+    fn mul(self, scalar: f64) -> Self::Output {
+        Vec2D {
+            i: self.i * scalar,
+            j: self.j * scalar,
+        }
+    }
+}
+
+impl ops::Div<f64> for Vec2D {
+    type Output = Vec2D;
+
+    fn div(self, scalar: f64) -> Self::Output {
+        Vec2D {
+            i: self.i / scalar,
+            j: self.j / scalar,
         }
     }
 }
