@@ -14,3 +14,10 @@ impl Dimension for TwoDimension {
         ((self.x - other.x).powi(2) + (self.y - other.y).powi(2)).sqrt()
     }
 }
+
+type Pt2D = TwoDimension;
+
+pub struct Vec2D {
+    pub i: f64,
+    pub j: f64,
+}
