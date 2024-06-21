@@ -15,9 +15,27 @@ impl Dimension for TwoDimension {
     }
 }
 
+pub trait Vector {
+    fn dot_product(&self, other: &Self) -> f64;
+    fn cross_product(&self, other: &Self) -> Self;
+}
+
 type Pt2D = TwoDimension;
 
 pub struct Vec2D {
     pub i: f64,
     pub j: f64,
+}
+
+impl Vector for Vec2D {
+    fn dot_product(&self, other: &Self) -> f64 {
+        self.i * other.i + self.j * other.j
+    }
+
+    fn cross_product(&self, other: &Self) -> Self {
+        Vec2D {
+            i: self.j * other.i - self.i * other.j,
+            j: self.i * other.j - self.j * other.i,
+        }
+    }
 }
