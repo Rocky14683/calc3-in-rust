@@ -24,6 +24,7 @@ pub trait Vector {
 
 type Pt2D = TwoDimension;
 
+#[derive(Debug)]
 pub struct Vec2D {
     pub i: f64,
     pub j: f64,

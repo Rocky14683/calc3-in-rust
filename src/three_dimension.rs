@@ -17,6 +17,7 @@ impl Dimension for ThreeDimension {
 
 type Pt3D = ThreeDimension;
 
+#[derive(Debug)]
 pub struct Vec3D {
     pub i: f64,
     pub j: f64,
