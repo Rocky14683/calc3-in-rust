@@ -1,9 +1,5 @@
 use std::ops;
 
-pub trait Dimension {
-    fn distance(&self, other: &Self) -> f64;
-
-}
 
 #[derive(Debug)]
 pub struct TwoDimension {
@@ -11,18 +7,53 @@ pub struct TwoDimension {
     pub y: f64,
 }
 
-impl Dimension for TwoDimension {
-    fn distance(&self, other: &Self) -> f64 {
-        ((self.x - other.x).powi(2) + (self.y - other.y).powi(2)).sqrt()
-    }
-}
-
 pub trait Vector {
     fn dot_product(&self, other: &Self) -> f64;
     fn cross_product(&self, other: &Self) -> Self;
 }
 
+
+pub trait Pt {
+    fn distance(&self, other: &Self) -> f64;
+
+    fn midpoint(&self, other: &Self) -> Self;
+
+    fn slope(&self, other: &Self) -> f64;
+
+    fn translate(&self, i: f64, j: f64) -> Self;
+}
+
 type Pt2D = TwoDimension;
+
+impl Pt2D {
+    pub fn new(x: f64, y: f64) -> Pt2D {
+        Pt2D { x, y }
+    }
+}
+
+impl Pt for Pt2D {
+    fn distance(&self, other: &Pt2D) -> f64 {
+        ((self.x - other.x).powi(2) + (self.y - other.y).powi(2)).sqrt()
+    }
+
+    fn midpoint(&self, other: &Pt2D) -> Pt2D {
+        Pt2D {
+            x: (self.x + other.x) / 2.0,
+            y: (self.y + other.y) / 2.0,
+        }
+    }
+
+    fn slope(&self, other: &Pt2D) -> f64 {
+        (self.y - other.y) / (self.x - other.x)
+    }
+
+    fn translate(&self, i: f64, j: f64) -> Pt2D {
+        Pt2D {
+            x: self.x + i,
+            y: self.y + j,
+        }
+    }
+}
 
 #[derive(Debug)]
 pub struct Vec2D {

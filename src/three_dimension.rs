@@ -8,14 +8,41 @@ pub struct ThreeDimension {
     pub z: f64,
 }
 
-impl Dimension for ThreeDimension {
-    fn distance(&self, other: &Self) -> f64 {
-        ((self.x - other.x).powi(2) + (self.y - other.y).powi(2) + (self.z - other.z).powi(2)).sqrt()
+
+type Pt3D = ThreeDimension;
+
+impl Pt3D {
+    pub fn new(x: f64, y: f64, z: f64) -> Pt3D {
+        Pt3D { x, y, z }
     }
 }
 
+impl Pt for Pt3D {
+    fn distance(&self, other: &Pt3D) -> f64 {
+        ((self.x - other.x).powi(2) + (self.y - other.y).powi(2) + (self.z - other.z).powi(2)).sqrt()
+    }
 
-type Pt3D = ThreeDimension;
+    fn midpoint(&self, other: &Pt3D) -> Pt3D {
+        Pt3D {
+            x: (self.x + other.x) / 2.0,
+            y: (self.y + other.y) / 2.0,
+            z: (self.z + other.z) / 2.0,
+        }
+    }
+
+    fn slope(&self, other: &Pt3D) -> f64 {
+        (self.y - other.y) / (self.x - other.x)
+    }
+
+    fn translate(&self, i: f64, j: f64) -> Pt3D {
+        Pt3D {
+            x: self.x + i,
+            y: self.y + j,
+            z: self.z,
+        }
+    }
+}
+
 
 #[derive(Debug)]
 pub struct Vec3D {
